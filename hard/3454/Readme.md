@@ -1,6 +1,6 @@
 # Separate Squares (Union of Intervals)
 
-[Liunk to the problem](https://leetcode.com/problems/separate-squares-ii/description/?envType=daily-question&envId=2026-01-14)
+[Link to the problem](https://leetcode.com/problems/separate-squares-ii/description/?envType=daily-question&envId=2026-01-14)
 
 ## Problem Description
 You are given a 2D integer array squares. Each squares[i] = [x_i, y_i, l_i] represents the coordinates of the bottom-left point and the side length of a square parallel to the x-axis.
