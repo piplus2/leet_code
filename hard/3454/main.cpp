@@ -92,7 +92,7 @@ struct Event {
 
 class Solution {
     // Use an ordered map to keep the squares data in the form
-    // <y, sum_of_squares_at_y>
+    // <y, area_slope>
     map<int, ll> slope_changes;
 
     public:
