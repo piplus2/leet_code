@@ -44,13 +44,6 @@ public:
                 left++;
             }
 
-            // if (curr_max_freq > k) {
-            //     max_len = max(max_len, right - left);
-            //     freq[nums[left]]--;
-            //     curr_max_freq--;
-            //     left = right+1;
-            // }
-
         }
 
         return max(max_len, n - left);
