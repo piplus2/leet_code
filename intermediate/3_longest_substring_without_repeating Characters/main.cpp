@@ -2,9 +2,8 @@
 Given a string s, find the length of the longest substring without duplicate characters.
 */
 
+#include <iostream>
 #include <string>
-#include <algorithm>
-#include <unordered_map>
 
 using namespace std;
 
@@ -41,3 +40,12 @@ public:
         return max_length;
     }
 };
+
+
+int main() {
+    string input;
+    cin >> input;
+    Solution sol;
+    int max_len = sol.lengthOfLongestSubstring(input);
+    cout << max_len << endl;
+}
