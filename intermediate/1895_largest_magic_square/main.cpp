@@ -38,7 +38,7 @@ public:
 
         int k = min(m, n);
         bool isMagic;
-        while (k >= 1)
+        while (k > 1)
         {
             // (i, j) top-left corner of the square
             for (int i = 0; i <= m - k; ++i)
