@@ -6,6 +6,10 @@ Replace the pair with their sum.
 Return the minimum number of operations needed to make the array non-decreasing.
 
 An array is said to be non-decreasing if each element is greater than or equal to its previous element (if it exists).
+
+NOTE:
+The solution without deletion of dangling pointers from the heap beats 74.68% but
+it's discouraged because it's a bad programming habit.
 */
 
 #include <vector>
@@ -79,18 +83,20 @@ public:
             operations++;
 
             // violations that we are introducing
-            if (S->prev != nullptr && S->prev->val > S->val)
-                violations++;
             if (S->prev != nullptr)
             {
+                if (S->prev->val > S->val)
+                    violations++;
+
                 S->prev->next = S;
                 pq.push({S->prev->val + S->val, S->prev->index, S->prev, S});
             }
 
             if (S->next != nullptr && S->val > S->next->val)
-                violations++;
-            if (S->next != nullptr)
             {
+                if (S->val > S->next->val)
+                    violations++;
+
                 S->next->prev = S;
                 pq.push({S->val + S->next->val, S->index, S, S->next});
             }
