@@ -47,29 +47,26 @@ public:
                 continue;
             }
 
-            if (carr[low] != 0 && carr[hi] != 0)
-            {
-                max_sum = max(max_sum, low + hi);
+            max_sum = max(max_sum, low + hi);
 
-                if (carr[low] < carr[hi])
-                {
-                    carr[hi] -= carr[low];
-                    carr[low] = 0;
-                    low++;
-                }
-                else if (carr[low] > carr[hi])
-                {
-                    carr[low] -= carr[hi];
-                    carr[hi] = 0;
-                    hi--;
-                }
-                else
-                {
-                    carr[low] = 0;
-                    carr[hi] = 0;
-                    low++;
-                    hi--;
-                }
+            if (carr[low] < carr[hi])
+            {
+                carr[hi] -= carr[low];
+                carr[low] = 0;
+                low++;
+            }
+            else if (carr[low] > carr[hi])
+            {
+                carr[low] -= carr[hi];
+                carr[hi] = 0;
+                hi--;
+            }
+            else
+            {
+                carr[low] = 0;
+                carr[hi] = 0;
+                low++;
+                hi--;
             }
         }
         if (low == hi)
@@ -82,7 +79,7 @@ public:
 
 int main()
 {
-    vector<int> nums = {4,1,5,1,2,5,1,5,5,4};
+    vector<int> nums = {4, 1, 5, 1, 2, 5, 1, 5, 5, 4};
     Solution sol;
     int min_sum = sol.minPairSum(nums);
 
