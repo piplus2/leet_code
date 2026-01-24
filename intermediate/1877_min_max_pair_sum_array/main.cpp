@@ -34,7 +34,7 @@ public:
         int max_sum = 0;
         int low = 0;
         int hi = m - 1;
-        while (low < m && hi >= 0 && low != hi)
+        while (low < m && hi >= 0 && low < hi)
         {
             if (carr[low] == 0)
             {
