@@ -18,67 +18,61 @@ class Solution
 public:
     int minCost(int n, vector<vector<int>> &edges)
     {
-        // state = (best_cost, node_id)
-        using State = pair<long long, int>;
-        long long INF = 1e18;
-        priority_queue<State, vector<State>, greater<State>> pq;
+        struct Edge
+        {
+            int to, weight, next;
+        };
 
-        vector<long long> dist(n, INF);
-        dist[0] = 0;
+        int m = edges.size();
+        int edge_count = 0;
+        vector<int> head(n, -1);
+        vector<Edge> e(2 * m);
+
+        auto add_edge = [&](int u, int v, int w)
+        {
+            e[edge_count] = {v, w, head[u]};
+            head[u] = edge_count++;
+        };
 
         // make adj and rev_adj
-        vector<vector<pair<int, int>>> adj(n);
-        vector<vector<pair<int, int>>> rev_adj(n);
-        for (auto const &edge : edges)
+        for (const auto &edge : edges)
         {
-            adj[edge[0]].push_back(make_pair(edge[1], edge[2]));
-            rev_adj[edge[1]].push_back(make_pair(edge[0], edge[2]));
+            add_edge(edge[0], edge[1], edge[2]);
+            add_edge(edge[1], edge[0], 2 * edge[2]);
         }
 
-        vector<char> switched(n, 0);
-        State start = {0, 0}; // start from 0
-        pq.push(start);
+        priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<pair<long long, int>>> pq;
+        vector<long long> dist(n, 1e18);
+        vector<char> visited(n, 0);
+
+        dist[0] = 0;
+        pq.push({0, 0});
 
         while (!pq.empty())
         {
-            State uState = pq.top();
+            auto [cost, u] = pq.top();
             pq.pop();
 
-            long long cost = uState.first;
-            int u = uState.second;
-
-            if (cost > dist[u])
-                continue;
-
-            for (auto const &[v, w] : adj[u])
+            for (int i = head[u]; i != -1; i = e[i].next)
             {
-                int new_cost = cost + w;
-                if (new_cost < dist[v])
-                {
-                    dist[v] = new_cost;
-                    pq.push({new_cost, v});
-                }
-            }
+                int v = e[i].to;
+                int w = e[i].weight;
 
-            if (!switched[u])
-            {
-                for (auto const &[v, w] : rev_adj[u])
+                if (visited[v])
+                    continue;
+
+                if (dist[u] + w < dist[v])
                 {
-                    int new_cost = cost + 2LL * w;
-                    if (new_cost < dist[v])
-                    {
-                        dist[v] = new_cost;
-                        pq.push({new_cost, v});
-                    }
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
                 }
-                switched[u] = 1;
             }
         }
 
-        if (dist[n - 1] == INF)
+        if (dist[n - 1] >= 1e18)
             return -1;
 
-        return dist[n - 1];
+        return (int)dist[n - 1];
     }
 };
 
