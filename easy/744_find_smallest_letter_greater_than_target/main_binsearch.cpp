@@ -13,12 +13,26 @@ class Solution
 public:
     char nextGreatestLetter(vector<char> &letters, char target)
     {
+        int n = letters.size();
+        int L = 0;
+        int R = n - 1;
         int t = (int)target;
-        for (char c : letters)
+        int res = letters[0];
+
+        while (L <= R)
         {
-            if ((int)c > t)
-                return (int)c;
+            int m = L + (int)((R - L) / 2);
+            int c = (int)letters[m];
+            if (c > t)
+            {
+                res = letters[m];
+                R = m - 1;
+            }
+            else
+            {
+                L = m + 1;
+            }
         }
-        return letters[0];
+        return res;
     }
 };
