@@ -19,6 +19,8 @@ class Solution:
                             if i == limit + 1 and j == 0:
                                 res -= 1
                             else:
+                                # When we overflow the limit, we need to subtract
+                                # the number of 
                                 res -= dp[i - limit - 1][j][1]
                         dp[i][j][0] = res % MOD
 
@@ -35,3 +37,13 @@ class Solution:
                         dp[i][j][1] = res % MOD
 
         return (dp[zero][one][0] + dp[zero][one][1]) % MOD
+
+
+if __name__ == "__main__":
+
+    zero = 4
+    one = 5
+    limit = 3
+
+    sol = Solution()
+    sol.numberOfStableArrays(zero, one, limit)
